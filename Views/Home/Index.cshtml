@@ -1,0 +1,104 @@
+﻿@model List<Event>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<script>
+  let currentDate = new Date();
+  sessionStorage.setItem("currentDate", currentDate);
+  const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+</script>
+
+
+<br><br>
+<div id="dayDetails" class="dayDetails">
+  <h3>Events</h3>
+  <div id="eventDetails">
+
+
+  </div>
+  <div>
+    <h4 id="monthTitle"></h4>
+    <form asp-action="NewEventResult">
+          <label for="name">Event name</label>
+          <input name="name"><br>
+          <label for="desc">Event Description</label>
+          <input name="desc"><br>
+          <label for="date">Date Of Event</label>
+          @* <input name="date" id="dateInput" style="display: none;" value="@DateTime.Now"><br><br> *@
+          <input name="date" type="date"><br>
+
+          <input type="submit" value="Create Event">
+    </form>
+  </div>
+</div>
+<br>
+@* <h5>Click on a date to pick day to add new event to</h5><br> *@
+@* Originaly intended to be date picker for event display and creation but depricated due to time constraint *@
+<div id="calendar">
+  <div class="month">
+    <ul>
+      <li class="prev"><a onclick="monthIncrement(-1)">&#10094;</a></li>
+      <li class="next"><a onclick="monthIncrement(1)">&#10095;</a></li>
+      <li><p id="monthText"></p><br><span id="yearText" style="font-size:18px"></span></li>
+    </ul>
+  </div>
+
+  <ul class="weekdays">
+    <li>Mo</li>
+    <li>Tu</li>
+    <li>We</li>
+    <li>Th</li>
+    <li>Fr</li>
+    <li>Sa</li>
+    <li>Su</li>
+  </ul>
+  <ul id='days' class="days"> 
+  </ul>
+</div>
+
+<script>
+  function daysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
+
+  function updateCalendar(date){
+    document.getElementById("monthText").innerHTML = month[date.getMonth()];
+    console.log(typeof(date));
+    document.getElementById("yearText").innerHTML = date.getFullYear();
+
+  let daysText = "";
+  for (let day = 1; day <= daysInMonth(date.getYear(),date.getMonth()+1); day++){
+      daysText += "<li onclick='dayDetails("+day+")'>"+(day)+"</li>";
+    }
+    document.getElementById("days").innerHTML = daysText;
+    console.log(daysInMonth(date.getYear(),date.getMonth()));
+  } 
+  
+
+  function dayDetails(day){
+    let date = new Date(sessionStorage.getItem("currentDate"));
+    date.setDate(day);
+    sessionStorage.setItem("currentDate", date);
+    document.getElementById("dateInput").Value = date.toString();
+    console.log(date);
+    document.getElementById("monthTitle").innerHTML = "Create New Event for " + day + " of " + month[date.getMonth()];
+    getEvents();
+  }
+
+  function monthIncrement(increment){
+    let newDate = new Date(sessionStorage.getItem("currentDate"));
+    console.log(newDate);
+    newDate.setMonth(newDate.getMonth() + increment);
+    updateCalendar(newDate);
+    sessionStorage.setItem("currentDate",newDate);
+  }
+
+  function getEvents(){
+ 
+    document.getElementById("eventDetails").innerHTML = "@foreach(var calEvent in Model){<h5>@calEvent.name</h5><p>@calEvent.date</p><p>description:<br>@calEvent.desc</p>}";
+  }
+  getEvents();
+  updateCalendar(currentDate);
+  dayDetails(currentDate.getDate());
+</script>

@@ -1,0 +1,10 @@
+﻿@model Event
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+Event: @Model.name Created for: @Model.date <br>
+Description:<br>
+@Model.desc<br>
+
+<a asp-area="" asp-controller="Home" asp-action="Index">back</a>
