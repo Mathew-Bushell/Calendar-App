@@ -7,4 +7,10 @@ Event: @Model.name Created for: @Model.date <br>
 Description:<br>
 @Model.desc<br>
 
-<a asp-area="" asp-controller="Home" asp-action="Index">back</a>
+@* <a asp-area="" asp-controller="Home" asp-action="Index">back</a> *@
+<form asp-action="Index">
+    <input name="name" value="@Model.name" style="visibility:hidden">
+    <input name="desc" value="@Model.desc" style="visibility:hidden">
+    <input name="date" value="@Model.date" style="visibility:hidden">
+    <input type="submit" value="Back">
+</form>

@@ -47,3 +47,4 @@ c:\Users\mathe\Desktop\Calendar App\bin\Debug\net8.0\runtimes\win-x64\native\krb
 c:\Users\mathe\Desktop\Calendar App\bin\Debug\net8.0\runtimes\win-x64\native\krbcc64.dll
 c:\Users\mathe\Desktop\Calendar App\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Windows.Extensions.dll
 C:\Users\mathe\Desktop\Calendar App\obj\Debug\net8.0\Calendar.A45FFE98.Up2Date
+c:\Users\mathe\Desktop\Calendar App\obj\Debug\net8.0\Calendar App.sourcelink.json
